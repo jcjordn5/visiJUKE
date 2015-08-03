@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SoundTest < ActiveSupport::TestCase
+class SoundcsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

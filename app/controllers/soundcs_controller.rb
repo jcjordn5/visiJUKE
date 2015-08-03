@@ -1,0 +1,2 @@
+class SoundcsController < ApplicationController
+end

@@ -7,5 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 SoundcloudApi.soundcloudwidget.each do |x|
-Sound.create(embedhtml: x)
+Soundc.create(embedhtml: x)
 end
