@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
 SoundcloudApi.soundcloudwidget.each do |x|
-Soundc.create(embedhtml: x)
+Sound.create(embedhtml: x)
 end
