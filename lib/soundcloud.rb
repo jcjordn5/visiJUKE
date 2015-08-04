@@ -14,12 +14,11 @@ end
 
 		sclient = SoundCloud.new(:client_id => ENV['SoundCloudKey'])
 		spull["tracks"].each do |x|
-		track_url = x['permalink_url']
-		embed_info = sclient.get('/oembed', :url => track_url)
-		@sounds.push( embed_info['html'] )
+		stream_url = x['stream_url']
+		@sounds.push( stream_url )
 		end
-
 		return @sounds
 
 	end
 end
+
