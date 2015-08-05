@@ -1,13 +1,11 @@
 class CreateSoundcs < ActiveRecord::Migration
   def change
     create_table :soundcs do |t|
-      t.string :stream_url
-      t.string :genre
       t.string :title
-      t.string :artwork_url
+      t.string :description
       t.string :waveform_url
-
-      t.timestamps null: false
+      t.string :stream_url
+      t.string :artwork_url
     end
   end
 end

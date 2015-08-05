@@ -53,7 +53,7 @@ var WebAudiox	= WebAudiox	|| {}
 
 /**
  * display an analyser node in a canvas
- * 
+ *
  * @param  {AnalyserNode} analyser     the analyser node
  * @param  {Number}	smoothFactor the smooth factor for smoothed volume
  */
@@ -68,7 +68,7 @@ WebAudiox.Analyser2Volume	= function(analyser, smoothFactor){
 		var rawVolume	= WebAudiox.Analyser2Volume.compute(analyser)
 		return rawVolume
 	}
-	
+
 	var smoothedVolume	= null
 	/**
 	 * [smoothedValue description]
@@ -78,7 +78,7 @@ WebAudiox.Analyser2Volume	= function(analyser, smoothFactor){
 		var rawVolume	= WebAudiox.Analyser2Volume.compute(analyser)
 		// compute smoothedVolume
 		if( smoothedVolume === null )	smoothedVolume	= rawVolume
-		smoothedVolume	+= (rawVolume  - smoothedVolume) * smoothFactor		
+		smoothedVolume	+= (rawVolume  - smoothedVolume) * smoothFactor
 		// return the just computed value
 		return smoothedVolume
 	}
@@ -116,7 +116,7 @@ var WebAudiox	= WebAudiox	|| {}
  * Generate a binaural sounds
  * http://htmlpreview.github.io/?https://github.com/ichabodcole/BinauralBeatJS/blob/master/examples/index.html
  * http://en.wikipedia.org/wiki/Binaural_beats
- * 
+ *
  * @param {Number} pitch    the frequency of the pitch (e.g. 440hz)
  * @param {Number} beatRate the beat rate of the binaural sound (e.g. around 2-10hz)
  * @param {Number} gain     the gain applied on the result
@@ -129,7 +129,7 @@ WebAudiox.BinauralSource	= function(context, pitch, beatRate, gain){
 	var gainNode	= context.createGain()
 	this.output	= gainNode
 	var destination	= gainNode
-	
+
 	var compressor	= context.createDynamicsCompressor();
 	compressor.connect(destination)
 	destination	= compressor
@@ -137,17 +137,17 @@ WebAudiox.BinauralSource	= function(context, pitch, beatRate, gain){
 	var channelMerge= context.createChannelMerger()
 	channelMerge.connect(destination)
 	destination	= channelMerge
-	
+
 	var leftOscil	= context.createOscillator()
 	leftOscil.connect(destination)
 
 	var rightOscil	= context.createOscillator()
 	rightOscil.connect(destination)
-	
+
 	var updateNodes	= function(){
 		gainNode.gain.value		= gain
 		leftOscil.frequency.value	= pitch - beatRate/2
-		rightOscil.frequency.value	= pitch + beatRate/2	
+		rightOscil.frequency.value	= pitch + beatRate/2
 	}
 	// do the initial update
 	updateNodes();
@@ -157,21 +157,21 @@ WebAudiox.BinauralSource	= function(context, pitch, beatRate, gain){
 	}
 	this.setGain	= function(value){
 		gain	= value
-		updateNodes();		
+		updateNodes();
 	}
 	this.getPitch	= function(){
 		return pitch
 	}
 	this.setPitch	= function(value){
 		pitch	= value
-		updateNodes();		
+		updateNodes();
 	}
 	this.getBeatRate= function(){
 		return beatRate
 	}
 	this.setBeatRate= function(value){
 		beatRate	= value
-		updateNodes();		
+		updateNodes();
 	}
 	/**
 	 * start the source
@@ -181,7 +181,7 @@ WebAudiox.BinauralSource	= function(context, pitch, beatRate, gain){
 		leftOscil.start(delay)
 		rightOscil.start(delay)
 	}
-	/** 
+	/**
 	 * stop the source
 	 */
 	this.stop	= function(delay){
@@ -196,7 +196,7 @@ var WebAudiox	= WebAudiox	|| {}
 /**
  * source is integers from 0 to 255,  destination is float from 0 to 1 non included
  * source and destination may not have the same length.
- * 
+ *
  * @param {Array} srcArray       the source array
  * @param {Array} dstArray       the destination array
  * @param {Number|undefined} dstArrayLength the length of the destination array. If not provided
@@ -218,7 +218,7 @@ WebAudiox.ByteToNormalizedFloat32Array	= function(srcArray, dstArray, dstArrayLe
 var WebAudiox	= WebAudiox	|| {}
 
 /**
- * generate buffer with jsfx.js 
+ * generate buffer with jsfx.js
  * @param  {AudioContext} context the WebAudio API context
  * @param  {Array} lib     parameter for jsfx
  * @return {[type]}         the just built buffer
@@ -250,7 +250,7 @@ WebAudiox.LineOut	= function(context){
 
 	// this.destination to support muteWithVisibility
 	var visibilityGain	= context.createGain()
-	visibilityGain.connect(this.destination)			
+	visibilityGain.connect(this.destination)
 	muteWithVisibility(visibilityGain)
 	this.destination= visibilityGain
 
@@ -266,18 +266,18 @@ WebAudiox.LineOut	= function(context){
 
 	//  to support webAudiox.volume
 	var volumeNode	= context.createGain()
-	volumeNode.connect( this.destination )	
+	volumeNode.connect( this.destination )
 	this.destination= volumeNode
 	Object.defineProperty(this, 'volume', {
 		get : function(){
-			return volumeNode.gain.value; 
+			return volumeNode.gain.value;
 		},
                 set : function(value){
 			volumeNode.gain.value	= value;
 		}
 	});
 
-	return;	
+	return;
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		muteWithVisibility helper					//
@@ -317,7 +317,7 @@ var WebAudiox	= WebAudiox	|| {}
 
 /**
  * Helper to load a buffer
- * 
+ *
  * @param  {AudioContext} context the WebAudio API context
  * @param  {String} url     the url of the sound to load
  * @param  {Function} onLoad  callback to notify when the buffer is loaded and decoded
@@ -340,7 +340,7 @@ WebAudiox.loadBuffer	= function(context, url, onLoad, onError){
 			// counter inProgress request
 			WebAudiox.loadBuffer.inProgressCount--
 			// notify the callback
-			onLoad(buffer)			
+			onLoad(buffer)
 			// notify
 			WebAudiox.loadBuffer.onLoad(context, url, buffer)
 		}, function(){
@@ -382,8 +382,8 @@ var WebAudiox	= WebAudiox	|| {}
 //////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Set Position of the listener based on THREE.Vector3  
- * 
+ * Set Position of the listener based on THREE.Vector3
+ *
  * @param  {AudioContext} context  the webaudio api context
  * @param {THREE.Vector3} position the position to use
  */
@@ -392,8 +392,8 @@ WebAudiox.ListenerSetPosition	= function(context, position){
 }
 
 /**
- * Set Position and Orientation of the listener based on object3d  
- * 
+ * Set Position and Orientation of the listener based on object3d
+ *
  * @param {[type]} panner   the panner node
  * @param {THREE.Object3D} object3d the object3d to use
  */
@@ -426,12 +426,12 @@ WebAudiox.ListenerSetObject3D	= function(context, object3d){
 
 /**
  * update webaudio context listener with three.Object3D position
- * 
+ *
  * @constructor
  * @param  {AudioContext} context  the webaudio api context
  * @param  {THREE.Object3D} object3d the object for the listenre
  */
-WebAudiox.ListenerObject3DUpdater	= function(context, object3d){	
+WebAudiox.ListenerObject3DUpdater	= function(context, object3d){
 	var prevPosition= null
 	this.update	= function(delta){
 		// update the position/orientation
@@ -458,8 +458,8 @@ WebAudiox.ListenerObject3DUpdater	= function(context, object3d){
 
 
 /**
- * Set Position of the panner node based on THREE.Vector3  
- * 
+ * Set Position of the panner node based on THREE.Vector3
+ *
  * @param {[type]} panner   the panner node
  * @param {THREE.Vector3} position the position to use
  */
@@ -468,8 +468,8 @@ WebAudiox.PannerSetPosition	= function(panner, position){
 }
 
 /**
- * Set Position and Orientation of the panner node based on object3d  
- * 
+ * Set Position and Orientation of the panner node based on object3d
+ *
  * @param {[type]} panner   the panner node
  * @param {THREE.Object3D} object3d the object3d to use
  */
@@ -478,7 +478,7 @@ WebAudiox.PannerSetObject3D	= function(panner, object3d){
 	object3d.updateMatrixWorld()
 	// get matrixWorld
 	var matrixWorld	= object3d.matrixWorld
-	
+
 	////////////////////////////////////////////////////////////////////////
 	// set position
 	var position	= new THREE.Vector3().getPositionFromMatrix(matrixWorld)
@@ -499,7 +499,7 @@ WebAudiox.PannerSetObject3D	= function(panner, object3d){
 
 /**
  * update panner position based on a object3d position
- * 
+ *
  * @constructor
  * @param  {[type]} panner   the panner node to update
  * @param  {THREE.Object3D} object3d the object from which we take the position
@@ -532,7 +532,7 @@ var WebAudiox	= WebAudiox	|| {}
 
 /**
  * display an analyser node in a canvas
- * 
+ *
  * @param  {AnalyserNode} analyser     the analyser node
  * @param  {Number}	  smoothFactor the smooth factor for smoothed volume
  */
@@ -540,36 +540,36 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 	var canvasCtx		= canvas.getContext("2d")
 
 	var gradient	= canvasCtx.createLinearGradient(0,0,0,canvas.height)
-	gradient.addColorStop(1.00,'#000000')
-	gradient.addColorStop(0.75,'#ff0000')
-	gradient.addColorStop(0.25,'#ffff00')
-	gradient.addColorStop(0.00,'#ffffff')
+	gradient.addColorStop(1.00,'#19B21A')
+	gradient.addColorStop(0.75,'#33CC34')
+	gradient.addColorStop(0.25,'#4CE54D')
+	gradient.addColorStop(0.00,'#66FF67')
 	canvasCtx.fillStyle	= gradient
-	
+
 	canvasCtx.lineWidth	= 5;
 	canvasCtx.strokeStyle	= "rgb(255, 255, 255)";
 
 	var analyser2volume	= new WebAudiox.Analyser2Volume(analyser)
-	
+
 	this.update	= function(){
 		//////////////////////////////////////////////////////////////////////////////////
 		//		comment								//
 		//////////////////////////////////////////////////////////////////////////////////
 
 		// draw a circle
-		var maxRadius	= Math.min(canvas.height, canvas.width) * 0.3
-		var radius	= 1 + analyser2volume.rawValue() * maxRadius;
-		canvasCtx.beginPath()
-		canvasCtx.arc(canvas.width*1.5/2, canvas.height*0.5/2, radius, 0, Math.PI*2, true)
-		canvasCtx.closePath()
-		canvasCtx.fill()
-		
+		//var maxRadius	= Math.min(canvas.height, canvas.width) * 0.3
+		//var radius	= 1 + analyser2volume.rawValue() * maxRadius;
+		//canvasCtx.beginPath()
+		//canvasCtx.arc(canvas.width*1.5/2, canvas.height*0.5/2, radius, 0, Math.PI*2, true)
+		//canvasCtx.closePath()
+		//canvasCtx.fill()
+
 		// draw a circle
-		var radius	= 1 + analyser2volume.smoothedValue() * maxRadius
-		canvasCtx.beginPath()
-		canvasCtx.arc(canvas.width*1.5/2, canvas.height*0.5/2, radius, 0, Math.PI*2, true)
-		canvasCtx.closePath()
-		canvasCtx.stroke()
+		//var radius	= 1 + analyser2volume.smoothedValue() * maxRadius
+		//canvasCtx.beginPath()
+		//canvasCtx.arc(canvas.width*1.5/2, canvas.height*0.5/2, radius, 0, Math.PI*2, true)
+		//canvasCtx.closePath()
+		//canvasCtx.stroke()
 
 		//////////////////////////////////////////////////////////////////////////////////
 		//		display	ByteFrequencyData					//
@@ -588,13 +588,13 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 		for(var i = 0; i < histogram.length; i++){
 			canvasCtx.fillRect(i*barStep, (1-histogram[i])*canvas.height, barWidth, canvas.height)
 		}
-		
+
 		//////////////////////////////////////////////////////////////////////////////////
 		//		display ByteTimeDomainData					//
 		//////////////////////////////////////////////////////////////////////////////////
-		
+
 		canvasCtx.lineWidth	= 5;
-		canvasCtx.strokeStyle = "rgb(255, 255, 255)";
+		canvasCtx.strokeStyle = "rgb(225, 0, 0)";
 		// get the average for the first channel
 		var timeData	= new Uint8Array(analyser.fftSize)
 		analyser.getByteTimeDomainData(timeData)
@@ -605,7 +605,7 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 		for(var i = 0; i < histogram.length; i++) {
 			histogram[i]	= (histogram[i]-0.5)*1.5+0.5
 		}
-		// draw the spectrum		
+		// draw the spectrum
 		var barStep	= canvas.width / (histogram.length-1)
 		canvasCtx.beginPath()
 		for(var i = 0; i < histogram.length; i++) {
@@ -613,7 +613,7 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 			canvasCtx.lineTo(i*barStep, (1-histogram[i])*canvas.height)
 		}
 		canvasCtx.stroke()
-	}	
+	}
 }
 // @namespace defined WebAudiox namespace
 var WebAudiox	= WebAudiox	|| {}
@@ -621,7 +621,7 @@ var WebAudiox	= WebAudiox	|| {}
 /**
  * display an analyser node in a canvas
  * * See http://www.airtightinteractive.com/2013/10/making-audio-reactive-visuals/
- * 
+ *
  * @param  {AnalyserNode} analyser     the analyser node
  * @param  {Number}	  smoothFactor the smooth factor for smoothed volume
  */
@@ -643,10 +643,10 @@ WebAudiox.AnalyserBeatDetector	= function(analyser, onBeat){
 			onBeat()
 			holdingTime	= this.holdTime;
 			threshold	= rawVolume * 1.1;
-			threshold	= Math.max(threshold, this.minVolume);	
+			threshold	= Math.max(threshold, this.minVolume);
 		}else{
 			threshold	*= this.decayRate;
-			threshold	= Math.max(threshold, this.minVolume);	
+			threshold	= Math.max(threshold, this.minVolume);
 		}
 	}
 }
@@ -684,7 +684,7 @@ var WebAudiox	= WebAudiox	|| {}
 
 WebAudiox.addAnalyserBeatDetectorDatGui	= function(beatDetector, datGui){
 	datGui		= datGui || new dat.GUI()
-	
+
 	var folder	= datGui.addFolder('Beat Detector');
 	folder.add(beatDetector, 'holdTime'		, 0.0, 4)
 	folder.add(beatDetector, 'decayRate'		, 0.1, 1.0)
@@ -712,13 +712,13 @@ WebAudiox.GameSounds	= function(){
 	// Create lineOut
 	var lineOut	= new WebAudiox.LineOut(context)
 	this.lineOut	= lineOut
-	
+
 	var clips	= {}
 	this.clips	= clips
-	
+
 	/**
 	 * show if the Web Audio API is detected or not
-	 * 
+	 *
 	 * @type {boolean}
 	 */
 	this.webAudioDetected	= AudioContext ? true : false
@@ -729,7 +729,7 @@ WebAudiox.GameSounds	= function(){
 
 	/**
 	 * the update function
-	 * 
+	 *
 	 * @param  {Number} delta seconds since the last iteration
 	 */
 	this.update	= function(delta){
@@ -743,7 +743,7 @@ WebAudiox.GameSounds	= function(){
 	//////////////////////////////////////////////////////////////////////////////////
 	//		create Sound							//
 	//////////////////////////////////////////////////////////////////////////////////
-			
+
 	/**
 	 * create a sound from this context
 	 * @param  {Object} options the default option for this sound, optional
@@ -766,10 +766,10 @@ WebAudiox.GameSoundListener	= function(gameSounds){
 	//////////////////////////////////////////////////////////////////////////////////
 	//		update loop							//
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
 	/**
 	 * the update function
-	 * 
+	 *
 	 * @param  {Number} delta seconds since the last iteration
 	 */
 	this.update	= function(delta){
@@ -788,9 +788,9 @@ WebAudiox.GameSoundListener	= function(gameSounds){
 	 */
 	this.at	= function(position){
 		if( position instanceof THREE.Vector3 ){
-			WebAudiox.ListenerSetPosition(context, position)	
+			WebAudiox.ListenerSetPosition(context, position)
 		}else if( position instanceof THREE.Object3D ){
-			WebAudiox.ListenerSetObject3D(context, position)	
+			WebAudiox.ListenerSetObject3D(context, position)
 		}else	console.assert(false)
 		return this
 	}
@@ -798,10 +798,10 @@ WebAudiox.GameSoundListener	= function(gameSounds){
 	//////////////////////////////////////////////////////////////////////////////////
 	//		handle .follow/.unFollow					//
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
 	/**
 	 * Make the listener follow a three.js THREE.Object3D
-	 * 
+	 *
 	 * @param  {THREE.Object3D} object3d the object to follow
 	 * @return {WebAudiox.GameSounds} the object itself for linked API
 	 */
@@ -810,14 +810,14 @@ WebAudiox.GameSoundListener	= function(gameSounds){
 		this.listenerUpdater	= new WebAudiox.ListenerObject3DUpdater(context, object3d)
 		return this
 	}
-	
+
 	/**
-	 * Make the listener Stop Following the object 
+	 * Make the listener Stop Following the object
 	 * @return {WebAudiox.GameSounds} the object itself for linked API
 	 */
 	this.stopFollow	= function(){
 		context.listener.setVelocity(0,0,0);
-		this.listenerUpdater	= null	
+		this.listenerUpdater	= null
 		return this
 	}
 }
@@ -828,7 +828,7 @@ WebAudiox.GameSoundListener	= function(gameSounds){
 
 /**
  * a sound from WebAudiox.GameSounds
- * @param {WebAudiox.GameSounds} gameSounds     
+ * @param {WebAudiox.GameSounds} gameSounds
  * @param {Object} defaultOptions the default play options
  */
 WebAudiox.GameSoundClip	= function(gameSounds, defaultOptions){
@@ -838,8 +838,8 @@ WebAudiox.GameSoundClip	= function(gameSounds, defaultOptions){
 	//////////////////////////////////////////////////////////////////////////////////
 	//		register/unregister in gameSound				//
 	//////////////////////////////////////////////////////////////////////////////////
-		
-	this.label	= null;	
+
+	this.label	= null;
 	this.register	= function(label){
 		console.assert(gameSounds.clips[label] === undefined, 'label already defined')
 		gameSounds.clips[label]	= this
@@ -850,11 +850,11 @@ WebAudiox.GameSoundClip	= function(gameSounds, defaultOptions){
 		delete gameSounds.clips[label]
 		return this;
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////////
 	//		update loop							//
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
 	var updateFcts	= []
 	this.update	= function(delta){
 		updateFcts.forEach(function(updateFct){
@@ -865,7 +865,7 @@ WebAudiox.GameSoundClip	= function(gameSounds, defaultOptions){
 	//////////////////////////////////////////////////////////////////////////////////
 	//		load url							//
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
 	this.load	= function(url, onLoad, onError){
 		this.loaded	= false
 		this.buffer	= null
@@ -879,7 +879,7 @@ WebAudiox.GameSoundClip	= function(gameSounds, defaultOptions){
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		createSource
-	//////////////////////////////////////////////////////////////////////////////////	
+	//////////////////////////////////////////////////////////////////////////////////
 
 	this.createSource	= function(opts){
 		opts		= opts	|| {}
@@ -917,13 +917,13 @@ WebAudiox.GameSoundSource = function(gameSound, options) {
 			var panner	= context.createPanner()
 			panner.connect(destination)
 			utterance.pannerNode	= panner
-			destination		= panner				
+			destination		= panner
 		}
 		// set the value
 		if( options.at instanceof THREE.Vector3 ){
-			WebAudiox.PannerSetPosition(panner, options.at)			
+			WebAudiox.PannerSetPosition(panner, options.at)
 		}else if( options.at instanceof THREE.Object3D ){
-			WebAudiox.PannerSetObject3D(panner, options.at.position)			
+			WebAudiox.PannerSetObject3D(panner, options.at.position)
 		}else	console.assert(false, 'invalid type for .at')
 	}
 
@@ -934,7 +934,7 @@ WebAudiox.GameSoundSource = function(gameSound, options) {
 			var panner	= context.createPanner()
 			panner.connect(destination)
 			utterance.pannerNode	= panner
-			destination		= panner				
+			destination		= panner
 		}
 		// put a PannerObject3DUpdater
 		var pannerUpdater	= new WebAudiox.PannerObject3DUpdater(panner, options.follow)
@@ -945,7 +945,7 @@ WebAudiox.GameSoundSource = function(gameSound, options) {
 		}
 		function updatePannerUpdater(delta, now){
 			pannerUpdater.update(delta, now)
-		}			
+		}
 		updateFcts.push(updatePannerUpdater)
 	}
 
@@ -954,7 +954,7 @@ WebAudiox.GameSoundSource = function(gameSound, options) {
 		var gain	= context.createGain();
 		gain.gain.value	= options.volume
 		gain.connect(destination)
-		destination	= gain			
+		destination	= gain
 		utterance.gainNode	= gain
 	}
 
@@ -969,15 +969,15 @@ WebAudiox.GameSoundSource = function(gameSound, options) {
 
 	// start the sound now
 	utterance.play	= function(delay){
-		delay	= delay !== undefined ? delay : 0		
+		delay	= delay !== undefined ? delay : 0
 		source.start(delay)
 		return this
 	}
 
 	utterance.stop		= function(delay){
-		delay	= delay !== undefined ? delay : 0		
+		delay	= delay !== undefined ? delay : 0
 		source.stop(delay)
-		// TODO What if the sound is never stopped ? 
+		// TODO What if the sound is never stopped ?
 		// - the list of function will grow in the loop
 		// - do a setTimeout with a estimation of duration ?
 		if( this.stopFollow )	this.stopFollow()

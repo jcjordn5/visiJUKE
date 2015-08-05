@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'soundcloud'
 gem 'dotenv-rails'
 gem 'httparty'
+gem 'materialize-sass'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
