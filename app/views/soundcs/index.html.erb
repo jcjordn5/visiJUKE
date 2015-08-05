@@ -1,7 +1,7 @@
 <div><canvas id="soundhopper" style="background-color:black">
   </canvas></div>
 <div class="col s12 m12 l12">
-  <% @soundc.each do |x| %>
+  <% @soundc[0..4].each do |x| %>
     <div>
       <%= x['title']%>
       <img class='materialboxed' src='<%= x['artwork_url'] %>'>
