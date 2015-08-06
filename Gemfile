@@ -30,6 +30,7 @@ gem 'dotenv-rails'
 gem 'httparty'
 gem 'materialize-sass'
 gem 'rails_12factor'
+gem 'figaro'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
