@@ -1,12 +1,20 @@
-<div><canvas id="soundhopper" style="background-color:black">
-  </canvas></div>
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div id="play-button" style="cursor:pointer">Start</div>
+    <canvas id="soundhopper" style="background-color:black">
+    </canvas>
+
+  </div>
+</div>
 <div class="col s12 m12 l12">
-  <% @soundc[0..4].each do |x| %>
+<div class="row">
+  <% @soundc.each do |x| %>
     <div>
       <%= x['title']%>
       <img class='materialboxed' src='<%= x['artwork_url'] %>'>
       <%= x['description'].html_safe %>
-      <audio controls src='<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>'></audio>
+        <div id="play-button<%= x['id'] %>" style="cursor:pointer">Start</div>
+      <audio id ='<%= x['id'] %>'controls src='<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>'></audio>
     </div>
   <% end %>
 </div>
