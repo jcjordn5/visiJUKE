@@ -9,6 +9,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <canvas id="soundhopper" style="background-color:black"></canvas>
+    </div>
+  </div>
 
 <%= yield %>
 
@@ -25,8 +30,8 @@ lineOut.destination	= analyser;
 // load a sound and play it immediatly
 
 var canvas	= document.getElementById('soundhopper');
-canvas.width	= window.innerWidth;
-canvas.height	= 500;
+canvas.width = window.innerWidth
+canvas.height = 400;
 var ctx		= canvas.getContext("2d");
 document.body.appendChild(canvas)
 // create the object

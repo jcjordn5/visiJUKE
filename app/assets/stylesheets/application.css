@@ -16,4 +16,13 @@
  @import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
 body {
 	font-family: 'Press Start 2P', cursive;
+  color: white;
+  background-color: black;
+}
+.desc {
+  font-size: 8px;
+}
+#tracklist{
+  height:300px;
+  overflow:scroll;
 }
