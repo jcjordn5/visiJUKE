@@ -2,11 +2,11 @@
 <div class="row" id="tracklist">
   <div class="col s12 m12 l12">
     <% @soundc.each do |x| %>
-      <div>
-        <h4><%= x['title']%></h4>
+      <div style="display:flex; justify-content:space-between;">
         <img class='materialboxed' src='<%= x['artwork_url'] %>'>
-        <p class="desc"><%= x['description'].html_safe %><p>
-          <div id="play-button<%= x['id'] %>" style="cursor:pointer">Start</div>
+        <h6 style="line-height:7;"><%= x['title']%></h6>
+        <div id="play-button<%= x['id'] %>" style="cursor:pointer; background-color:white; color:black; line-height:7; padding:2px;">Start</div>
+        <div id="stop-button<%= x['id'] %>" style="cursor:pointer; background-color:white; color:black; line-height:7; padding:2px;">Stop</div>
       </div>
     <% end %>
   </div>

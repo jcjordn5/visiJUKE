@@ -20,10 +20,11 @@
 </body>
 <script>
 //my use of webaudiox
-var context	= new AudioContext()
+var context	= new AudioContext();
+
 // Create lineOut
 var lineOut	= new WebAudiox.LineOut(context)
-lineOut.volume	= 0.2
+lineOut.volume	= 1;
 var analyser	= context.createAnalyser()
 analyser.connect(lineOut.destination);
 lineOut.destination	= analyser;
@@ -46,15 +47,22 @@ analyser2canvas.update()
 });
 <% @soundc.each do |x| %>
 var button<%= x['id'] %> = document.getElementById('play-button<%= x['id'] %>');
+var source	= context.createBufferSource()
 button<%= x['id'] %>.addEventListener("click", function() {
   WebAudiox.loadBuffer(context, "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>", function(buffer){
-    var source	= context.createBufferSource()
   source.buffer	= buffer
   source.loop	= true
   source.connect(lineOut.destination)
   source.start(0);
+  console.log(source);
+  });
+  return source;
 });
-});
+var button2<%= x['id'] %> = document.getElementById('stop-button<%= x['id'] %>');
+button2<%= x['id'] %>.addEventListener("click", function() {
+ source.stop(0);
+ context.clearRect(0, 0, canvas.width, canvas.height);
+  });
 <% end %>
 </script>
 </html>
