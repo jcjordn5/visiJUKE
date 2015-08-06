@@ -7,7 +7,6 @@
         <img class='materialboxed' src='<%= x['artwork_url'] %>'>
         <p class="desc"><%= x['description'].html_safe %><p>
           <div id="play-button<%= x['id'] %>" style="cursor:pointer">Start</div>
-        <audio id ='<%= x['id'] %>'controls src='<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>'></audio>
       </div>
     <% end %>
   </div>
