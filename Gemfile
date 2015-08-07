@@ -31,6 +31,7 @@ gem 'httparty'
 gem 'materialize-sass'
 gem 'rails_12factor'
 gem 'figaro'
+gem 'rack-cors', :require => 'rack/cors'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

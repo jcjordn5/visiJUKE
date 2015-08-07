@@ -1,12 +1,13 @@
 
 <div class="row" id="tracklist">
   <div class="col s12 m12 l12">
+    <audio id="player" src="" autoplay="" controls=""></audio>
+    <div id="tracks">
+    </div>
     <% @soundc.each do |x| %>
-      <div style="display:flex; justify-content:space-between;">
+      <div id="track<%=x['id']%>"style="display:flex; justify-content:space-around;">
         <img class='materialboxed' src='<%= x['artwork_url'] %>'>
         <h6 style="line-height:7;"><%= x['title']%></h6>
-        <div id="play-button<%= x['id'] %>" style="cursor:pointer; background-color:white; color:black; line-height:7; padding:2px;">Start</div>
-        <div id="stop-button<%= x['id'] %>" style="cursor:pointer; background-color:white; color:black; line-height:7; padding:2px;">Stop</div>
       </div>
     <% end %>
   </div>

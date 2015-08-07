@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <title>Project4</title>
@@ -19,6 +20,14 @@
 
 </body>
 <script>
+<% @soundc.each do |x| %>
+var audio<%= x['id'] %> = new Audio();
+audio<%= x['id'] %>.src = "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>&callback=processTracks";
+audio<%= x['id'] %>.controls = true;
+audio<%= x['id'] %>.autoplay = false;
+audio<%= x['id'] %>.crossOrigin="anonymous"
+document.getElementById("track<%=x['id']%>").appendChild(audio<%=x['id']%>);
+<% end %>
 //my use of webaudiox
 var context	= new AudioContext();
 
@@ -38,31 +47,24 @@ document.body.appendChild(canvas)
 // create the object
 var analyser2canvas	= new WebAudiox.Analyser2Canvas(analyser, canvas)
 // loop and update
-requestAnimationFrame(function update() {
-requestAnimationFrame(update);
-// clear the canvas
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-// put the sound in the canvas
-analyser2canvas.update()
-});
+
 <% @soundc.each do |x| %>
-var button<%= x['id'] %> = document.getElementById('play-button<%= x['id'] %>');
-var source	= context.createBufferSource()
-button<%= x['id'] %>.addEventListener("click", function() {
-  WebAudiox.loadBuffer(context, "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>", function(buffer){
-  source.buffer	= buffer
-  source.loop	= true
-  source.connect(lineOut.destination)
-  source.start(0);
-  console.log(source);
+window.addEventListener('load', function(e) {
+  // Our <audio> element will be the audio source.
+  var source = context.createMediaElementSource(audio<%=x['id']%>);
+  source.connect(analyser);
+  analyser.connect(context.destination);
+
+  requestAnimationFrame(function update() {
+  requestAnimationFrame(update);
+  // clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // put the sound in the canvas
+  analyser2canvas.update()
   });
-  return source;
-});
-var button2<%= x['id'] %> = document.getElementById('stop-button<%= x['id'] %>');
-button2<%= x['id'] %>.addEventListener("click", function() {
- source.stop(0);
- context.clearRect(0, 0, canvas.width, canvas.height);
-  });
+  // ...call requestAnimationFrame() and render the analyser's output to canvas.
+}, false);
 <% end %>
+
 </script>
 </html>
