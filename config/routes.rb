@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :soundcs
   root 'soundcs#index'
+  controller 'api/v1/api' do
+    match '*unmatched_route', :to => 'api/v1/api#route_options', via: [:options]
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
