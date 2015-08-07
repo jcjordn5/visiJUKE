@@ -10,19 +10,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="row">
-    <div class="col s12 m12 l12">
-      <canvas id="soundhopper" style="background-color:black">
-
-      </canvas>
-    </div>
-</div>
-
-<%= yield %>
-
-
+  <header><h2 class="center" style="background-color:blue; margin:0;">visPLAY</h2></header>
+  <%= yield %>
 </body>
 <script>
+//use erb to iterate over the @soundc instance variable inorder to dynamically create audio sources onto the DOM
+var soundc = document.getElementById('thesound');
 <% @soundc[2..8].each do |x| %>
 var audio<%= x['id'] %> = new Audio();
 audio<%= x['id'] %>.src = "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>";
@@ -31,17 +24,15 @@ audio<%= x['id'] %>.autoplay = false;
 audio<%= x['id'] %>.crossOrigin="anonymous"
 document.getElementById("track<%=x['id']%>").appendChild(audio<%=x['id']%>);
 <% end %>
-//my use of webaudiox
+//set up Web Audio API by establishing the AudioContext
 var context	= new AudioContext();
-
 // Create lineOut
 var lineOut	= new WebAudiox.LineOut(context)
 lineOut.volume	= 1;
 var analyser	= context.createAnalyser()
 analyser.connect(lineOut.destination);
 lineOut.destination	= analyser;
-// load a sound and play it immediatly
-
+//
 var canvas	= document.getElementById('soundhopper');
 canvas.width = window.innerWidth
 canvas.height = 400;
