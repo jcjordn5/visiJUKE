@@ -16,13 +16,14 @@
 
       </canvas>
     </div>
-  </div>
+</div>
 
 <%= yield %>
 
+
 </body>
 <script>
-<% @soundc[0..4].each do |x| %>
+<% @soundc.each do |x| %>
 var audio<%= x['id'] %> = new Audio();
 audio<%= x['id'] %>.src = "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>";
 audio<%= x['id'] %>.controls = true;
