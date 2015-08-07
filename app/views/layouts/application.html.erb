@@ -23,7 +23,7 @@
 
 </body>
 <script>
-<% @soundc.each do |x| %>
+<% @soundc[2..8].each do |x| %>
 var audio<%= x['id'] %> = new Audio();
 audio<%= x['id'] %>.src = "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>";
 audio<%= x['id'] %>.controls = true;
@@ -51,7 +51,7 @@ document.body.appendChild(canvas)
 var analyser2canvas	= new WebAudiox.Analyser2Canvas(analyser, canvas)
 // loop and update
 
-<% @soundc.each do |x| %>
+<% @soundc[2..8].each do |x| %>
 window.addEventListener('load', function(e) {
   // Our <audio> element will be the audio source.
   var source = context.createMediaElementSource(audio<%=x['id']%>);

@@ -1,7 +1,7 @@
 <div class="row">
   <div id="tracklist">
     <div class="col s12 m12 l12">
-      <% @soundc.each do |x| %>
+      <% @soundc[2..8].each do |x| %>
         <div id="track<%=x['id']%>" class="song-title">
           <img class='materialboxed' src='<%= x['artwork_url'] %>'>
           <p style="line-height:5; font-size:8px;"><%= x['title']%></p>
