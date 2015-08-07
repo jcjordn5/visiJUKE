@@ -4,5 +4,6 @@ class ApplicationController < ActionController::Base
  def index
    @soundc = Soundc.all
 end
+
   protect_from_forgery with: :exception
 end

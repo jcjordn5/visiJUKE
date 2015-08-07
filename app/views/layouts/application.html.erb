@@ -12,7 +12,9 @@
 <body>
   <div class="row">
     <div class="col s12 m12 l12">
-      <canvas id="soundhopper" style="background-color:black"></canvas>
+      <canvas id="soundhopper" style="background-color:black">
+
+      </canvas>
     </div>
   </div>
 
@@ -22,7 +24,7 @@
 <script>
 <% @soundc.each do |x| %>
 var audio<%= x['id'] %> = new Audio();
-audio<%= x['id'] %>.src = "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>&callback=processTracks";
+audio<%= x['id'] %>.src = "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>";
 audio<%= x['id'] %>.controls = true;
 audio<%= x['id'] %>.autoplay = false;
 audio<%= x['id'] %>.crossOrigin="anonymous"
@@ -65,6 +67,5 @@ window.addEventListener('load', function(e) {
   // ...call requestAnimationFrame() and render the analyser's output to canvas.
 }, false);
 <% end %>
-
 </script>
 </html>

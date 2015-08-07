@@ -26,3 +26,7 @@ body {
   height:300px;
   overflow:scroll;
 }
+.song-title {
+  display:flex;
+  justify-content:space-around;
+}
