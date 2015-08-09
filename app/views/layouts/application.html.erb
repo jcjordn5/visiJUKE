@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>Project4</title>
+  <title>visiJUKE</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script src="//connect.soundcloud.com/sdk-2.0.0.js"></script>
@@ -10,45 +10,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <header><h2 class="center" style="background-color:blue; margin:0;">visPLAY</h2></header>
-  <%= yield %>
+  <header><h2 class="center" style="background-color:blue; margin:0;">visiJUKE</h2></header>
+  <div id="side-margins">
+    <%= yield %>
+  </div>
 </body>
 <script>
-//use erb to iterate over the @soundc instance variable inorder to dynamically create audio sources onto the DOM
-var soundc = document.getElementById('thesound');
-<% @soundc[2..8].each do |x| %>
+//use erb to iterate over the @soundc instance variable in order to dynamically create audio sources onto the DOM
+<% @soundc.each do |x| %>
 var audio<%= x['id'] %> = new Audio();
-audio<%= x['id'] %>.src = "<%= x['stream_url'] %>?client_id=<%=ENV['SoundCloudKey']%>";
+audio<%= x['id'] %>.src = "<%= x['stream_url']%>.json?client_id=<%=ENV['SoundCloudKey']%>";
 audio<%= x['id'] %>.controls = true;
 audio<%= x['id'] %>.autoplay = false;
 audio<%= x['id'] %>.crossOrigin="anonymous"
 document.getElementById("track<%=x['id']%>").appendChild(audio<%=x['id']%>);
 <% end %>
-//set up Web Audio API by establishing the AudioContext
+//set up Web Audio API by establishing the AudioContext and the analyser
 var context	= new AudioContext();
-// Create lineOut
-var lineOut	= new WebAudiox.LineOut(context)
-lineOut.volume	= 1;
 var analyser	= context.createAnalyser()
-analyser.connect(lineOut.destination);
-lineOut.destination	= analyser;
-//
-var canvas	= document.getElementById('soundhopper');
-canvas.width = window.innerWidth
-canvas.height = 400;
+//tell the audioContext that it's going to the analyser
+context.destination = analyser;
+//canvas is created in the DOM the actual eq shapes are precooked into the webaudioX sourcecode
+var canvas	= document.getElementById('soundhopper')
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight*.7;
 var ctx		= canvas.getContext("2d");
 document.body.appendChild(canvas)
 // create the object
 var analyser2canvas	= new WebAudiox.Analyser2Canvas(analyser, canvas)
-// loop and update
-
-<% @soundc[2..8].each do |x| %>
+<% @soundc.each do |x| %>
 window.addEventListener('load', function(e) {
-  // Our <audio> element will be the audio source.
+ //loading the tracks to the soundhopper canvas
   var source = context.createMediaElementSource(audio<%=x['id']%>);
   source.connect(analyser);
   analyser.connect(context.destination);
-
   requestAnimationFrame(function update() {
   requestAnimationFrame(update);
   // clear the canvas

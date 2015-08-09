@@ -579,7 +579,7 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 		var freqData	= new Uint8Array(analyser.frequencyBinCount)
 		analyser.getByteFrequencyData(freqData)
 		// normalized
-		var histogram	= new Float32Array(10)
+		var histogram	= new Float32Array(30)
 		WebAudiox.ByteToNormalizedFloat32Array(freqData, histogram)
 		// draw the spectrum
 		var barStep	= canvas.width / (histogram.length-1)
@@ -599,7 +599,7 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 		var timeData	= new Uint8Array(analyser.fftSize)
 		analyser.getByteTimeDomainData(timeData)
 		// normalized
-		var histogram	= new Float32Array(60)
+		var histogram	= new Float32Array(1000)
 		WebAudiox.ByteToNormalizedFloat32Array(timeData, histogram)
 		// amplify the histogram
 		for(var i = 0; i < histogram.length; i++) {
