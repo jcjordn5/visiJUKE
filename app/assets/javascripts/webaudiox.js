@@ -593,13 +593,13 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 		//		display ByteTimeDomainData					//
 		//////////////////////////////////////////////////////////////////////////////////
 
-		canvasCtx.lineWidth	= 5;
+		canvasCtx.lineWidth	= 3;
 		canvasCtx.strokeStyle = "rgb(225, 0, 0)";
 		// get the average for the first channel
 		var timeData	= new Uint8Array(analyser.fftSize)
 		analyser.getByteTimeDomainData(timeData)
 		// normalized
-		var histogram	= new Float32Array(100)
+		var histogram	= new Float32Array(50)
 		WebAudiox.ByteToNormalizedFloat32Array(timeData, histogram)
 		// amplify the histogram
 		for(var i = 0; i < histogram.length; i++) {
