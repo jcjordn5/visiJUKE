@@ -16,8 +16,10 @@
  @import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
 body {
 	font-family: 'Press Start 2P', cursive;
-  color: white;
-  background-color: black;
+  background color:silver;
+}
+h2 {
+  color:white;
 }
 .center {
   padding-top:20px;
@@ -34,8 +36,7 @@ img {
   font-size: 8px;
 }
 #tracklist{
-  height:100px;
-
+  height:auto;
   display:inline-block;
 }
 #feed{
@@ -44,6 +45,8 @@ img {
 }
 .song-title {
   letter-spacing: -0.5px;
-  display:flex;
+  display:inline-block;
   justify-content:space-between;
+  padding-left: 10px;
+  padding-right: 10px;
 }
