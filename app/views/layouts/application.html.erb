@@ -3,17 +3,33 @@
 <html>
 <head>
   <title>visiJUKE</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
   <link href="/assets/favicon.ico" rel="shortcut icon" type="image/x-icon" />
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <header><h2 class="center" style="background-color:blue; margin:0;">visiJUKE</h2></header>
+  <header style="background-color:blue; margin:-27px;"><h2 class="center">visiJUKE</h2>
+  </header>
+  <button class="btn modal-trigger" data-target="modalinfo">IMPORTANT</button>
+  <div id="modalinfo" class="modal">
+    <div class="modal-content">
+      <h4>IMPORTANT</h4>
+      <p>To get the most from visiJUKE add this chrome extension linked <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">HERE</a></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close btn-flat">Close</a>
+    </div>
+  </div>
     <%= yield %>
 </body>
 <script>
-
+$('#modalinfo').openModal();
+$(document).ready(function(){
+    $('.modal-trigger').leanModal();
+  });
 //use erb to iterate over the @soundc instance variable in order to dynamically create audio sources onto the DOM
 <% @soundc.each do |x| %>
 var audio<%= x['id'] %> = new Audio();
