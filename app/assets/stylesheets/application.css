@@ -23,18 +23,24 @@ body {
   padding-top:20px;
   padding-bottom:20px;
 }
-audio {
-  background-color:blue;
+#row{
+  overflow-x: scroll;
+}
+img {
+  width:100px;
+  height:100px;
 }
 .desc {
   font-size: 8px;
 }
 #tracklist{
   height:100px;
-  overflow:scroll;
+
+  display:inline-block;
 }
 #feed{
   display:flex;
+  overflow-x:scroll;
 }
 .song-title {
   letter-spacing: -0.5px;

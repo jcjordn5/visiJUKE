@@ -9,10 +9,20 @@ Bundler.require(*Rails.groups)
 module Project4
   class Application < Rails::Application
     config.autoload_paths += %W(#{config.root}/lib)
-    config.middleware.insert_before ActionDispatch::Static, Rack::Cors do
+    config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
+
+        resource '/cors',
+          :headers => :any,
+          :methods => [:get],
+          :credentials => true,
+          :max_age => 1728000
+
+        resource '*',
+          :headers => :any,
+          :methods => [:get, :post, :delete, :put, :options, :head],
+          :max_age => 1728000
       end
     end
     # Settings in config/environments/* take precedence over those specified here.

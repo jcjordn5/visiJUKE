@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
 <head>
   <title>visiJUKE</title>
@@ -11,18 +11,17 @@
 </head>
 <body>
   <header><h2 class="center" style="background-color:blue; margin:0;">visiJUKE</h2></header>
-  <div id="side-margins">
     <%= yield %>
-  </div>
 </body>
 <script>
+
 //use erb to iterate over the @soundc instance variable in order to dynamically create audio sources onto the DOM
 <% @soundc.each do |x| %>
 var audio<%= x['id'] %> = new Audio();
 audio<%= x['id'] %>.src = "<%= x['stream_url']%>.json?client_id=<%=ENV['SoundCloudKey']%>";
 audio<%= x['id'] %>.controls = true;
 audio<%= x['id'] %>.autoplay = false;
-audio<%= x['id'] %>.crossOrigin="anonymous"
+audio<%= x['id'] %>.crossOrigin="anonymous";
 document.getElementById("track<%=x['id']%>").appendChild(audio<%=x['id']%>);
 <% end %>
 //set up Web Audio API by establishing the AudioContext and the analyser
@@ -36,14 +35,16 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight*.7;
 var ctx		= canvas.getContext("2d");
 document.body.appendChild(canvas)
-// create the object
+// I call up WebaudioX's analyser2canvas object to load it onto the DOM
 var analyser2canvas	= new WebAudiox.Analyser2Canvas(analyser, canvas)
 <% @soundc.each do |x| %>
 window.addEventListener('load', function(e) {
  //loading the tracks to the soundhopper canvas
   var source = context.createMediaElementSource(audio<%=x['id']%>);
   source.connect(analyser);
+  //connecting the analsyer to the audio context
   analyser.connect(context.destination);
+  //this is where the music gets animated
   requestAnimationFrame(function update() {
   requestAnimationFrame(update);
   // clear the canvas
@@ -51,7 +52,6 @@ window.addEventListener('load', function(e) {
   // put the sound in the canvas
   analyser2canvas.update()
   });
-  // ...call requestAnimationFrame() and render the analyser's output to canvas.
 }, false);
 <% end %>
 </script>
