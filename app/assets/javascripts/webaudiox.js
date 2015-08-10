@@ -599,7 +599,7 @@ WebAudiox.Analyser2Canvas	= function(analyser, canvas){
 		var timeData	= new Uint8Array(analyser.fftSize)
 		analyser.getByteTimeDomainData(timeData)
 		// normalized
-		var histogram	= new Float32Array(1000)
+		var histogram	= new Float32Array(100)
 		WebAudiox.ByteToNormalizedFloat32Array(timeData, histogram)
 		// amplify the histogram
 		for(var i = 0; i < histogram.length; i++) {
